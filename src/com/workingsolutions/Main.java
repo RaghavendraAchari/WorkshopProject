@@ -11,9 +11,39 @@ public class Main {
     private static User currentUser = null;
     private static Scanner in = new Scanner(System.in);
     public static void main(String[] args) {
-        showMenu();
 
-        String s = FileIO.search("Users.txt","raghav");
+        showMenu();
+        String choice = in.nextLine();
+        switch (choice){
+            case "1" :
+                showWorkshops();
+                break;
+
+            case "2" :
+                book();
+                break;
+
+            case "3" :
+                rent();
+                break;
+
+            case "4" :
+                register();
+                break;
+
+            case "5" :
+                login();
+                break;
+
+            case "6" :
+                return ;
+
+            default:
+                out.println("Wrong Choice");
+        }
+
+
+        String s = FileIO.search("Users.txt","ragha");
         out.println(s);
     }
 
@@ -25,21 +55,21 @@ public class Main {
         out.println("4. Register Yourself");
         out.println("5. Login");
         out.println("6. Exit");
-
     }
 
     private static void login() {
         out.println("Enter User Id : ");
         String userId = in.nextLine();
-        byte[] buffer = new byte[1024];
-        try{
 
+        try{
             String name = FileIO.search("Users.txt", userId);
             if(name==null){
                 out.println("No match found");
+                currentUser = null;
                 return;
+            }else {
+                currentUser = new User();
             }
-
         }catch (Exception e){
             out.println("in login");
         }
@@ -49,7 +79,17 @@ public class Main {
 
     }
     public static void register(){
+        out.println("Enter your details : ");
+        User newUser = new User();
+        newUser.getUserDetails();
+        if(currentUser==null){
+            currentUser = newUser;
+        }
 
+        if(FileIO.writeUserData(newUser)){
+            out.flush();
+            out.println("Successfully Registered");
+        }
     }
     public static void rent(){
 
