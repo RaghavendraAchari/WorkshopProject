@@ -11,8 +11,6 @@ public class FileIO {
         try{
             RandomAccessFile file = new RandomAccessFile(fileName, "r");
 
-
-
             String line;
             out.println(file.getFilePointer());
             while ((line=file.readLine())!=null){
@@ -20,8 +18,6 @@ public class FileIO {
                     out.println(file.getFilePointer());
                     return line;
                 }
-
-
             }
         }catch (Exception e){
             out.println(e);
@@ -37,10 +33,13 @@ public class FileIO {
 
     public static boolean writeUserData(User newUser)  {
         try{
-            File file = new File("Databases/Users.txt");
-            //RandomAccessFile f = new RandomAccessFile("Databases/Users.txt","w");
-            BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(newUser.getPackedData());
+            //File file = new File("Databases/Users.txt");
+            RandomAccessFile f = new RandomAccessFile("Databases/Users.txt","rw");
+            //BufferedWriter br = new BufferedWriter(new FileWriter(file));
+            //br.write(newUser.getPackedData());
+            f.seek(f.length());
+            f.writeBytes(newUser.getPackedData());
+            f.close();
             return true;
         }catch (Exception e){
             out.println("Error");
