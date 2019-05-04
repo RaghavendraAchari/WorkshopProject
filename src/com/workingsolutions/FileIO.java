@@ -133,4 +133,10 @@ public class FileIO {
     }
 
 
+    public static void showAllWorkshops() {
+    }
+
+    public static Workshop getWorkshop(String workshopId) {
+        return null;
+    }
 }

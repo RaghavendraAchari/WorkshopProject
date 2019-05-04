@@ -1,9 +1,6 @@
 package com.workingsolutions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static java.lang.System.out;
 
@@ -14,23 +11,24 @@ public class Workshop {
     private Address workshopAddress;
     private String workshopName;
     private String userId;
+    private String workshopPhone;
 
-    private class WorkshopDetails{
-        public int basicTools;
-        public int advancedTools;
-        public boolean transportationAvailable;
+
+    public Workshop(){
+        Date today = new Date();
+
     }
 
-    private enum Booking{
-        BOOKED, AVAILABLE, NOT_AVAILABLE
+    public void printDetails() {
+        //TODO: implement this method
     }
 
-    private class TimingDetails{
-        private String day;
-        private Booking morning;
-        private Booking noon;
-        private Booking evening;
+    public void printAvailability() {
+        //TODO: implement this method
+    }
 
+    public void book(String slot) {
+        //TODO: implement this method
     }
 
     public String getUserId() {

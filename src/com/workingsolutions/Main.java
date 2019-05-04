@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 import static java.lang.System.*;
 
@@ -67,8 +66,11 @@ public class Main {
     }
 
     private static void showMenu() {
-        out.println("Main Menu");
-        out.println("1. Show Workshops");
+        String userName ;
+
+        userName = (currentUser!=null) ? currentUser.getName() : "None" ;
+        out.println("Main Menu ----------- User : " + userName);
+        out.println("1. Show My Workshops");
         out.println("2. Book A Workshop");
         out.println("3. Rent Your Workshop");
         out.println("4. Register Yourself");
@@ -82,13 +84,13 @@ public class Main {
         String userId = in.nextLine();
 
         try{
-            String name = FileIO.search("Users.txt", userId);
-            if(name==null){
+            User user = FileIO.getUser(userId);
+            if(user==null){
                 out.println("No match found");
                 currentUser = null;
                 return;
             }else {
-                currentUser = new User();
+                currentUser = user;
             }
         }catch (Exception e){
             out.println("in login");
@@ -96,6 +98,28 @@ public class Main {
     }
 
     public static void book(){
+        if(currentUser == null) {
+            out.println("Please login.");
+            login();
+        }
+        FileIO.showAllWorkshops();
+        out.print("Please enter workshop id to select the workshop : ");
+        String workshopId = in.nextLine();
+
+        Workshop workshop = FileIO.getWorkshop(workshopId);
+
+        out.println("Below are the details of the workshop.");
+        workshop.printDetails();
+        workshop.printAvailability();
+
+        out.println("Enter a slot number to book the workshop");
+        String slot = in.nextLine();
+        try {
+            workshop.book(slot);
+            out.println("Thanks for using our service.");
+        }catch (Exception e){
+            e.getMessage();
+        }
 
     }
     public static void register(){
@@ -133,7 +157,7 @@ public class Main {
                 out.println(w.toString());
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }

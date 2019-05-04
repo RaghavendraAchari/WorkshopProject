@@ -34,12 +34,18 @@ public class Address{
 
         out.print("Your state : ");
         setState(in.nextLine());
+        compress();
 
         out.print("Pincode : ");
         setPinCode(in.nextLine());
     }
 
+    private void compress() {
+
+    }
+
     public String getPackedData() {
         return getState() + ":" + getPinCode();
     }
+
 }
