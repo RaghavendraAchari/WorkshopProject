@@ -11,11 +11,21 @@ import static java.lang.System.*;
 public class Main {
     private static User currentUser = new User();
     private static Scanner in = new Scanner(System.in);
+    private static List<Index> indexList = null ;
     public static void main(String[] args) {
         currentUser.setName("ramesh");
         currentUser.setAddress(null);
         currentUser.setPhone("987987987");
         currentUser.setUserId("user1");
+
+        // create a list of Index objects from file and sort it
+
+        indexList = FileIO.createIndex();
+        for (Index i :
+                indexList) {
+            out.println(i.toString());
+        }
+
         while (true){
             showMenu();
             String choice = in.nextLine();
@@ -42,6 +52,12 @@ public class Main {
 
                 case "6" :
                     return ;
+                case "7":
+                    for (Index i :
+                            indexList) {
+                        out.println(i.toString());
+                    }
+                    break;
 
                 default:
                     out.println("Wrong Choice");
@@ -58,6 +74,7 @@ public class Main {
         out.println("4. Register Yourself");
         out.println("5. Login");
         out.println("6. Exit");
+        out.println("7. Show Index");
     }
 
     private static void login() {
@@ -84,14 +101,14 @@ public class Main {
     public static void register(){
         out.println("Enter your details : ");
         User newUser = new User();
-        newUser.getUserDetails();
+        newUser.getUserDetailsFromUser();
+
+
+        if(FileIO.writeUserData(newUser,indexList)){
+            out.println("Successfully Registered");
+        }
         if(currentUser==null){
             currentUser = newUser;
-        }
-
-        if(FileIO.writeUserData(newUser)){
-            out.flush();
-            out.println("Successfully Registered");
         }
     }
     public static void rent(){

@@ -29,7 +29,7 @@ public class Address{
         return getState() + " - " + getPinCode();
     }
 
-    public void getAddressDetails() {
+    public void getAddressDetailsFromUser() {
         Scanner in =new Scanner(System.in);
 
         out.print("Your state : ");

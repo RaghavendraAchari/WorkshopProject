@@ -3,10 +3,7 @@ package com.workingsolutions;
 import com.sun.source.tree.WhileLoopTree;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static java.lang.System.*;
 
@@ -49,14 +46,17 @@ public class FileIO {
     }
 
 
-    public static boolean writeUserData(User newUser)  {
+    public static boolean writeUserData(User newUser,List<Index> list)  {
         try{
             //File file = new File("Databases/Users.txt");
             RandomAccessFile f = new RandomAccessFile("Databases/Users.txt","rw");
             //BufferedWriter br = new BufferedWriter(new FileWriter(file));
             //br.write(newUser.getPackedData());
             f.seek(f.length());
+            Index index = new Index(newUser.getUserId(),f.getFilePointer());
             f.writeBytes(newUser.getPackedData());
+            list.add(index);
+            sortIndex(list);
             f.close();
             return true;
         }catch (Exception e){
@@ -89,6 +89,7 @@ public class FileIO {
                     list.add(workshop);
                 }
             }
+
             return list;
 
         }catch (Exception e){
@@ -96,4 +97,40 @@ public class FileIO {
         }
         return null;
     }
+
+    public static List<Index> createIndex() {
+        RandomAccessFile file = null;
+        List<Index> list = new ArrayList<>();
+
+        try{
+            file = new RandomAccessFile("Databases/Users.txt","r");
+            String line ;
+            long addressInFile;
+            while ((line=file.readLine())!=null){
+                addressInFile = file.getFilePointer();
+                User user = User.getUnpackedData(line);
+                Index index = new Index(user.getUserId(),addressInFile);
+                list.add(index);
+            }
+            file.close();
+            sortIndex(list);
+            return list;
+        }catch (FileNotFoundException e){
+            out.println(e.getStackTrace());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void sortIndex(List<Index> list){
+        list.sort(new Comparator<Index>() {
+            @Override
+            public int compare(Index o1, Index o2) {
+                return o1.getUserId().compareTo(o2.getUserId());
+            }
+        });
+    }
+
+
 }

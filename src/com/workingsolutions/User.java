@@ -6,15 +6,14 @@ import java.util.StringTokenizer;
 import static java.lang.System.*;
 
 public class User {
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     private String userId;
     private String name;
     private Address address;
     private String phone;
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getName() {
         return name;
@@ -40,7 +39,7 @@ public class User {
         this.phone = phone;
     }
 
-    public void getUserDetails(){
+    public void getUserDetailsFromUser(){
         Scanner in = new Scanner(System.in);
         out.print("User Id : ");
         userId = in.nextLine();
@@ -51,7 +50,7 @@ public class User {
 
         address = new Address();
         out.println("Address : ");
-        address.getAddressDetails();
+        address.getAddressDetailsFromUser();
 
         out.print("Phone : ");
         phone = in.nextLine();

@@ -9,6 +9,12 @@ import static java.lang.System.out;
 
 public class Workshop {
     Scanner in = new Scanner(System.in);
+
+
+    private Address workshopAddress;
+    private String workshopName;
+    private String userId;
+
     private class WorkshopDetails{
         public int basicTools;
         public int advancedTools;
@@ -27,20 +33,15 @@ public class Workshop {
 
     }
 
-    private Address workshopAddress;
-    private String workshopName;
-
     public String getUserId() {
         return userId;
     }
-
-    private String userId;
 
     public String getPackedData(){
         return userId + ":" + workshopName + ":" + workshopAddress.getPackedData();
     }
 
-    public void getWorkshopDetails(){
+    public void getWorkshopDetailsFromUser(){
         out.println("Enter user Id : ");
         userId = in.nextLine();
 
@@ -49,7 +50,7 @@ public class Workshop {
 
         out.println("Enter workshop address : ");
         workshopAddress = new Address();
-        workshopAddress.getAddressDetails();
+        workshopAddress.getAddressDetailsFromUser();
     }
 
     public static Workshop getUnpackedData(String data){
