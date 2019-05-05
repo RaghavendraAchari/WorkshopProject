@@ -2,7 +2,8 @@ package com.workingsolutions;
 
 public class EStates {
     public static enum States{
-        KARNATAKA(47);
+
+        KARNATAKA(29);
 
         private int code;
 
@@ -14,4 +15,12 @@ public class EStates {
         }
 
     }
+    public EStates(String name, int code){
+        stateName = name;
+        this.code = code;
+    }
+    public String stateName;
+    public int code;
+
 }
+

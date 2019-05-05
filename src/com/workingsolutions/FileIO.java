@@ -25,6 +25,7 @@ public class FileIO {
         }
         return null;
     }
+
     public static User getUser(String userId) throws Exception{
         File file = new File("Databases/Users.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -36,27 +37,27 @@ public class FileIO {
             }
         }
 
-
         return null;
     }
 
-    public static boolean writeData(){
-
-        return true;
-    }
-
-
-    public static boolean writeUserData(User newUser,List<Index> list)  {
+    public static boolean writeUserData(User newUser,List<PrimaryKeyIndex> primaryKeyIndexListist,List<SecondaryKeyIndex> secondaryKeyIndexList)  {
         try{
             //File file = new File("Databases/Users.txt");
             RandomAccessFile f = new RandomAccessFile("Databases/Users.txt","rw");
             //BufferedWriter br = new BufferedWriter(new FileWriter(file));
             //br.write(newUser.getPackedData());
             f.seek(f.length());
-            Index index = new Index(newUser.getUserId(),f.getFilePointer());
+
             f.writeBytes(newUser.getPackedData());
-            list.add(index);
-            sortIndex(list);
+
+            PrimaryKeyIndex primaryKeyIndex = new PrimaryKeyIndex(newUser.getUserId(),f.getFilePointer());
+            SecondaryKeyIndex secondaryKeyIndex = new SecondaryKeyIndex(newUser.getName(),f.getFilePointer());
+
+            primaryKeyIndexListist.add(primaryKeyIndex);
+            secondaryKeyIndexList.add(secondaryKeyIndex);
+
+            sortIndex(primaryKeyIndexListist);
+            sortIndex(secondaryKeyIndexList);
             f.close();
             return true;
         }catch (Exception e){
@@ -98,42 +99,45 @@ public class FileIO {
         return null;
     }
 
-    public static List<Index> createIndex() {
+    public static void createIndex(List<PrimaryKeyIndex> primaryKeyIndexList, List<SecondaryKeyIndex> secondaryKeyIndexList) {
         RandomAccessFile file = null;
-        List<Index> list = new ArrayList<>();
+
 
         try{
             file = new RandomAccessFile("Databases/Users.txt","r");
             String line ;
-            long addressInFile;
+            long addressInFile = file.getFilePointer();
             while ((line=file.readLine())!=null){
-                addressInFile = file.getFilePointer();
                 User user = User.getUnpackedData(line);
-                Index index = new Index(user.getUserId(),addressInFile);
-                list.add(index);
+                PrimaryKeyIndex primaryKeyIndex = new PrimaryKeyIndex(user.getUserId(),addressInFile);
+                SecondaryKeyIndex secondaryKeyIndex = new SecondaryKeyIndex(user.getName(),addressInFile);
+                primaryKeyIndexList.add(primaryKeyIndex);
+                secondaryKeyIndexList.add(secondaryKeyIndex);
+                addressInFile = file.getFilePointer();
             }
             file.close();
-            sortIndex(list);
-            return list;
+            sortIndex(primaryKeyIndexList);
+            sortIndex(secondaryKeyIndexList);
+
         }catch (FileNotFoundException e){
             out.println(e.getStackTrace());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public static void sortIndex(List<Index> list){
+    public static void sortIndex(List<? extends Index> list){
         list.sort(new Comparator<Index>() {
             @Override
             public int compare(Index o1, Index o2) {
-                return o1.getUserId().compareTo(o2.getUserId());
+                return o1.getKey().compareTo(o2.getKey());
             }
         });
     }
 
 
     public static void showAllWorkshops() {
+
     }
 
     public static Workshop getWorkshop(String workshopId) {

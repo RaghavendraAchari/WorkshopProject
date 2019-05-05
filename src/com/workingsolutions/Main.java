@@ -10,7 +10,8 @@ import static java.lang.System.*;
 public class Main {
     private static User currentUser = new User();
     private static Scanner in = new Scanner(System.in);
-    private static List<Index> indexList = null ;
+    private static List<PrimaryKeyIndex> primaryKeyIndexList = new ArrayList<>() ;
+    private static List<SecondaryKeyIndex> secondaryKeyIndexList = new ArrayList<>() ;
     public static void main(String[] args) {
         currentUser.setName("ramesh");
         currentUser.setAddress(null);
@@ -19,12 +20,8 @@ public class Main {
 
         // create a list of Index objects from file and sort it
 
-        indexList = FileIO.createIndex();
-        for (Index i :
-                indexList) {
-            out.println(i.toString());
-        }
-
+        FileIO.createIndex(primaryKeyIndexList,secondaryKeyIndexList);
+        printIndex();
         while (true){
             showMenu();
             String choice = in.nextLine();
@@ -52,10 +49,7 @@ public class Main {
                 case "6" :
                     return ;
                 case "7":
-                    for (Index i :
-                            indexList) {
-                        out.println(i.toString());
-                    }
+                    printIndex();
                     break;
 
                 default:
@@ -63,6 +57,20 @@ public class Main {
             }
         }
 
+    }
+
+    private static void printIndex() {
+        if(primaryKeyIndexList!=null && secondaryKeyIndexList != null){
+            out.println("Primary Index : ");
+            for (PrimaryKeyIndex i : primaryKeyIndexList){
+                out.println(i.toString());
+            }
+
+            out.println("Secondary Index : ");
+            for (SecondaryKeyIndex i : secondaryKeyIndexList){
+                out.println(i.toString());
+            }
+        }
     }
 
     private static void showMenu() {
@@ -128,7 +136,7 @@ public class Main {
         newUser.getUserDetailsFromUser();
 
 
-        if(FileIO.writeUserData(newUser,indexList)){
+        if(FileIO.writeUserData(newUser, primaryKeyIndexList,secondaryKeyIndexList)){
             out.println("Successfully Registered");
         }
         if(currentUser==null){

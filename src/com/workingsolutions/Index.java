@@ -1,22 +1,12 @@
 package com.workingsolutions;
 
-public class Index {
-    private String userId;
+public abstract class Index {
+
     private long addressInFile;
 
-    public Index(String id, long address){
-        this.userId = id;
+    public Index(long address){
         this.addressInFile = address;
-     }
-
-    public String getUserId() {
-        return userId;
     }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public long getAddressInFile() {
         return addressInFile;
     }
@@ -27,6 +17,9 @@ public class Index {
 
     @Override
     public String toString() {
-        return userId + " " + addressInFile;
+        return String.valueOf(addressInFile);
+
     }
+    public abstract Index getNewObject();
+    public abstract String getKey();
 }
