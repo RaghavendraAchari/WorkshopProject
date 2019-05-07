@@ -71,7 +71,7 @@ public class User {
         user.userId = details.nextToken();
         user.name = details.nextToken();
         Address newAddress = new Address();
-        newAddress.setState(details.nextToken());
+        newAddress.setStateCode(details.nextToken());
         newAddress.setPinCode(details.nextToken());
         user.address = newAddress;
         user.phone = details.nextToken();

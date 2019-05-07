@@ -8,6 +8,18 @@ public class Address{
     private String state;
     private String pinCode;
 
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
+        try{
+            int i = Integer.parseInt(stateCode);
+            state = States.getStateByCode(String.valueOf(i));
+        }catch (Exception e){
+            state = stateCode;
+        }
+    }
+
+    private String stateCode;
+
     public String getState() {
         return state;
     }
@@ -34,18 +46,23 @@ public class Address{
 
         out.print("Your state : ");
         setState(in.nextLine());
-        compress();
+        if(compress()==-1){
+            out.println("State not matched.We will keep your state as it is.");
+            stateCode = state;
+        }else {
+            stateCode = String.valueOf(compress());
+        }
 
         out.print("Pincode : ");
         setPinCode(in.nextLine());
     }
 
-    private void compress() {
-
+    private int compress() {
+        return States.getCode(state);
     }
 
     public String getPackedData() {
-        return getState() + ":" + getPinCode();
+        return stateCode + ":" + pinCode;
     }
 
 }

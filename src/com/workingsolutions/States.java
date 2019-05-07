@@ -50,5 +50,14 @@ public class States{
         }
         return -1;
     }
+    public static String getStateByCode(String code){
+        int i;
+        try{
+            i=Integer.parseInt(code);
+            return stateList[i];
+        }catch (Exception e){
+            return code;
+        }
+    }
 
 }

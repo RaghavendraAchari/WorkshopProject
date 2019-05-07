@@ -36,7 +36,7 @@ public class Workshop {
     }
 
     public String getPackedData(){
-        return userId + ":" + workshopName + ":" + workshopAddress.getPackedData();
+        return userId + ":" + workshopName + ":" + workshopAddress.getPackedData() + ":" + workshopPhone;
     }
 
     public void getWorkshopDetailsFromUser(){
@@ -49,6 +49,8 @@ public class Workshop {
         out.println("Enter workshop address : ");
         workshopAddress = new Address();
         workshopAddress.getAddressDetailsFromUser();
+        out.println("Enter workshop Phone no. : ");
+        workshopPhone = in.nextLine();
     }
 
     public static Workshop getUnpackedData(String data){
@@ -61,15 +63,16 @@ public class Workshop {
         newWorkshop.workshopName = currentWorkshop.nextToken();
 
         Address newAddress = new Address();
-        newAddress.setState(currentWorkshop.nextToken());
+        newAddress.setStateCode(currentWorkshop.nextToken());
         newAddress.setPinCode(currentWorkshop.nextToken());
 
         newWorkshop.workshopAddress = newAddress;
+        newWorkshop.workshopPhone = currentWorkshop.nextToken();
         return newWorkshop;
     }
 
     @Override
     public String toString() {
-        return userId + " " + workshopName + " " + workshopAddress.toString();
+        return userId + " " + workshopName + " " + workshopAddress.toString() + " " + workshopPhone;
     }
 }
