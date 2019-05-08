@@ -19,9 +19,8 @@ public class Main {
         currentUser.setUserId("user1");
 
         // create a list of Index objects from file and sort it
-
         FileIO.createIndex(primaryKeyIndexList,secondaryKeyIndexList);
-        printIndex();
+
         while (true){
             showMenu();
             String choice = in.nextLine();
@@ -43,7 +42,10 @@ public class Main {
                     break;
 
                 case "5" :
-                    login();
+                    if(currentUser!=null)
+                        logout();
+                    else
+                        login();
                     break;
 
                 case "6" :
@@ -82,7 +84,10 @@ public class Main {
         out.println("2. Book A Workshop");
         out.println("3. Rent Your Workshop");
         out.println("4. Register Yourself");
-        out.println("5. Login");
+        if(currentUser!=null)
+            out.println("5. Logout");
+        else
+            out.println("5. Login");
         out.println("6. Exit");
         out.println("7. Show Index");
     }
@@ -103,6 +108,11 @@ public class Main {
         }catch (Exception e){
             out.println("in login");
         }
+    }
+
+    public static void logout(){
+        if(currentUser!=null)
+            currentUser = null;
     }
 
     public static void book(){
