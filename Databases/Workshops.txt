@@ -1,2 +1,2 @@
-user1:Marvel:Kar:560001:5645645
-user1:Marvel Studio:Kar:560001:564645646
+xdmin:Marvel:kar:560001:5645645:500
+admin:Marvel Studio:Kar:560001:564645646:600

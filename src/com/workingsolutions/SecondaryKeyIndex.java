@@ -11,9 +11,6 @@ public class SecondaryKeyIndex extends Index {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -29,6 +26,6 @@ public class SecondaryKeyIndex extends Index {
     }
     @Override
     public String toString() {
-        return name + " " + getAddressInFile();
+        return name + " \t " + getAddressInFile();
     }
 }

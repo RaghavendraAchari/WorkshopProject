@@ -38,7 +38,7 @@ public class Address{
 
     @Override
     public String toString() {
-        return getState() + " - " + getPinCode();
+        return "\tState : " + getState() + "\tPin - " + getPinCode();
     }
 
     public void getAddressDetailsFromUser() {

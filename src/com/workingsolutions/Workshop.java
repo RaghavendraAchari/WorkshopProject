@@ -12,10 +12,11 @@ public class Workshop {
     private String workshopName;
     private String userId;
     private String workshopPhone;
+    private String price;
 
 
     public Workshop(){
-        Date today = new Date();
+
 
     }
 
@@ -31,8 +32,8 @@ public class Workshop {
         //TODO: implement this method
     }
 
-    public String getUserId() {
-        return userId;
+    public String getWorkshopName() {
+        return workshopName;
     }
 
     public String getPackedData(){
@@ -40,17 +41,19 @@ public class Workshop {
     }
 
     public void getWorkshopDetailsFromUser(){
-        out.println("Enter user Id : ");
-        userId = in.nextLine();
-
+        userId = "admin";
         out.println("Enter workshop name : ");
         workshopName = in.nextLine();
 
         out.println("Enter workshop address : ");
         workshopAddress = new Address();
         workshopAddress.getAddressDetailsFromUser();
+
         out.println("Enter workshop Phone no. : ");
         workshopPhone = in.nextLine();
+
+        out.println("Enter workshop Price For One Day : ");
+        price = in.nextLine();
     }
 
     public static Workshop getUnpackedData(String data){
@@ -68,11 +71,13 @@ public class Workshop {
 
         newWorkshop.workshopAddress = newAddress;
         newWorkshop.workshopPhone = currentWorkshop.nextToken();
+        newWorkshop.price = currentWorkshop.nextToken();
         return newWorkshop;
     }
 
     @Override
     public String toString() {
-        return userId + " " + workshopName + " " + workshopAddress.toString() + " " + workshopPhone;
+        return "Name : " + workshopName + "\tAddress : " + workshopAddress.toString() +
+                "\tPhone : " + workshopPhone + "\tPrice : " + price;
     }
 }

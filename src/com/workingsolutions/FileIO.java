@@ -8,23 +8,7 @@ import java.util.*;
 import static java.lang.System.*;
 
 public class FileIO {
-    public static String search(String fileName,String name){
-        try{
-            RandomAccessFile file = new RandomAccessFile(fileName, "r");
-
-            String line;
-            out.println(file.getFilePointer());
-            while ((line=file.readLine())!=null){
-                if(line.equals(name)){
-                    out.println(file.getFilePointer());
-                    return line;
-                }
-            }
-        }catch (Exception e){
-            out.println(e);
-        }
-        return null;
-    }
+    public static String WORKSHOP = "Databases/Workshops.txt";
 
     public static User getUser(String userId) throws Exception{
         File file = new File("Databases/Users.txt");
@@ -36,7 +20,6 @@ public class FileIO {
                 return cur;
             }
         }
-
         return null;
     }
 
@@ -79,16 +62,14 @@ public class FileIO {
         }
     }
 
-    public static List<Workshop> getUserWorkshops(User currentUser) {
+    public static List<Workshop> getWorkshops() {
         try {
             List<Workshop> list = new ArrayList<>();
             BufferedReader br = new BufferedReader(new FileReader("Databases/Workshops.txt"));
             String data ;
             while ((data = br.readLine())!=null){
                 Workshop workshop = Workshop.getUnpackedData(data);
-                if(workshop.getUserId().equals(currentUser.getUserId())){
-                    list.add(workshop);
-                }
+                list.add(workshop);
             }
 
             return list;
@@ -99,10 +80,8 @@ public class FileIO {
         return null;
     }
 
-    public static void createIndex(List<PrimaryKeyIndex> primaryKeyIndexList, List<SecondaryKeyIndex> secondaryKeyIndexList) {
+    public static void createUserIndex(List<PrimaryKeyIndex> primaryKeyIndexList, List<SecondaryKeyIndex> secondaryKeyIndexList) {
         RandomAccessFile file = null;
-
-
         try{
             file = new RandomAccessFile("Databases/Users.txt","r");
             String line ;
@@ -126,6 +105,30 @@ public class FileIO {
         }
     }
 
+    public static void createWorkshopIndex(List<SecondaryKeyIndex> secondaryKeyIndexList) {
+        RandomAccessFile file = null;
+
+
+        try{
+            file = new RandomAccessFile("Databases/Workshops.txt","r");
+            String line ;
+            long addressInFile = file.getFilePointer();
+            while ((line=file.readLine())!=null){
+                Workshop workshop = Workshop.getUnpackedData(line);
+                SecondaryKeyIndex secondaryKeyIndex = new SecondaryKeyIndex(workshop.getWorkshopName(),addressInFile);
+                secondaryKeyIndexList.add(secondaryKeyIndex);
+                addressInFile = file.getFilePointer();
+            }
+            file.close();
+            sortIndex(secondaryKeyIndexList);
+
+        }catch (FileNotFoundException e){
+            out.println(e.getStackTrace());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void sortIndex(List<? extends Index> list){
         list.sort(new Comparator<Index>() {
             @Override
@@ -135,12 +138,42 @@ public class FileIO {
         });
     }
 
-
     public static void showAllWorkshops() {
 
     }
 
-    public static Workshop getWorkshop(String workshopId) {
+    public static Workshop getWorkshop(String workshopName,List<SecondaryKeyIndex> list) {
+        for (SecondaryKeyIndex w :list) {
+            if(w.getKey().toLowerCase().equals(workshopName.toLowerCase())){
+                try{
+                    RandomAccessFile file = new RandomAccessFile("Databases/Workshops.txt","r");
+                    file.seek(w.getAddressInFile());
+                    String line = file.readLine();
+                    Workshop workshop = Workshop.getUnpackedData(line);
+                    file.close();
+                    return workshop;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
         return null;
+    }
+
+    public static boolean deleteWorkshop(String searchKey,List<SecondaryKeyIndex> list) {
+        try{
+            RandomAccessFile file = new RandomAccessFile(WORKSHOP,"rw");
+            for (SecondaryKeyIndex w:list) {
+                if(w.getKey().toLowerCase().equals(searchKey.toLowerCase())){
+                    file.seek(w.getAddressInFile());
+                    file.write('x');
+                    file.close();
+                    list.remove(w);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

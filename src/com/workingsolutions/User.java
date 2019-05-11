@@ -58,7 +58,7 @@ public class User {
 
     @Override
     public String toString() {
-        return userId + " " + name + " " + address + " " + phone;
+        return "userId : " + userId + "\tName : " + name + "\tAddress : " + address + "\tPhone : " + phone;
     }
 
     public String getPackedData(){

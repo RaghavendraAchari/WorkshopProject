@@ -8,68 +8,128 @@ import java.util.Scanner;
 import static java.lang.System.*;
 
 public class Main {
-    private static User currentUser = new User();
+    private static User currentUser = null;
+    private static boolean adminLoggedIn = false;
     private static Scanner in = new Scanner(System.in);
     private static List<PrimaryKeyIndex> primaryKeyIndexList = new ArrayList<>() ;
     private static List<SecondaryKeyIndex> secondaryKeyIndexList = new ArrayList<>() ;
-    public static void main(String[] args) {
-        currentUser.setName("ramesh");
-        currentUser.setAddress(null);
-        currentUser.setPhone("987987987");
-        currentUser.setUserId("user1");
+    private static List<SecondaryKeyIndex> secondaryKeyIndexListOfWorkshop = new ArrayList<>() ;
 
+
+    public static void main(String[] args) {
         // create a list of Index objects from file and sort it
-        FileIO.createIndex(primaryKeyIndexList,secondaryKeyIndexList);
+        FileIO.createUserIndex(primaryKeyIndexList,secondaryKeyIndexList);
+        FileIO.createWorkshopIndex(secondaryKeyIndexListOfWorkshop);
+        String choice;
 
         while (true){
-            showMenu();
-            String choice = in.nextLine();
-            switch (choice){
-                case "1" :
-                    showWorkshops();
-                    break;
-
-                case "2" :
-                    book();
-                    break;
-
-                case "3" :
-                    rent();
-                    break;
-
-                case "4" :
-                    register();
-                    break;
-
-                case "5" :
-                    if(currentUser!=null)
+            if(adminLoggedIn){
+                showAdminMenu();
+                choice = in.nextLine();
+                switch (choice){
+                    case "1" :
+                        showWorkshops();
+                        break;
+                    case "2":
+                        rent();
+                        break;
+                    case "3":
+                        showBookingDetails();
+                        break;
+                    case "4":
+                        deleteWorkshop();
+                        break;
+                    case "5":
                         logout();
-                    else
-                        login();
-                    break;
+                        break;
+                    case "6":
+                        return;
+                    default:
+                        out.println("Wrong Choice");
+                }
+            }else {
+                showMenu();
+                choice = in.nextLine();
+                switch (choice){
+                    case "1" :
+                        showWorkshops();
+                        break;
 
-                case "6" :
-                    return ;
-                case "7":
-                    printIndex();
-                    break;
+                    case "2" :
+                        book();
+                        break;
 
-                default:
-                    out.println("Wrong Choice");
+                    case "3" :
+                        if(currentUser!=null)
+                            logout();
+                        else
+                            login();
+                        break;
+
+                    case "4" :
+                        if(currentUser==null)
+                            register();
+                        else
+                            out.println(currentUser.toString());
+                        break;
+                    case "5" :
+                        return ;
+
+                    case "6":
+                        printUserIndex();
+                        printWorkshopIndex();
+                        break;
+
+                    default:
+                        out.println("Wrong Choice");
+                }
             }
         }
+    }
+
+    private static void deleteWorkshop() {
+        showWorkshops();
+    }
+
+    private static void showBookingDetails() {
 
     }
 
-    private static void printIndex() {
+    private static void showAdminMenu() {
+        String userName ;
+
+        userName = (currentUser!=null) ? currentUser.getName() : "None" ;
+        out.println("Main Menu ----------- User : " + userName);
+        out.println("1. Show All Workshops");
+        out.println("2. Add New Workshop");
+        out.println("3. Show Booking Details");
+        out.println("4. Remove Workshop");
+        out.println("5. Logout");
+        out.println("6. Exit");
+    }
+
+    private static void printUserIndex() {
         if(primaryKeyIndexList!=null && secondaryKeyIndexList != null){
             out.println("Primary Index : ");
+            out.println("UserId: \t Address");
             for (PrimaryKeyIndex i : primaryKeyIndexList){
                 out.println(i.toString());
             }
-
+            out.println();
             out.println("Secondary Index : ");
+            out.println("UserName: \t Address");
             for (SecondaryKeyIndex i : secondaryKeyIndexList){
+                out.println(i.toString());
+            }
+        }
+    }
+
+    private static void printWorkshopIndex(){
+        if(secondaryKeyIndexListOfWorkshop != null){
+            out.println();
+            out.println("Secondary Index Of Workshop : ");
+            out.println("Name : \t Address");
+            for (SecondaryKeyIndex i : secondaryKeyIndexListOfWorkshop){
                 out.println(i.toString());
             }
         }
@@ -80,16 +140,21 @@ public class Main {
 
         userName = (currentUser!=null) ? currentUser.getName() : "None" ;
         out.println("Main Menu ----------- User : " + userName);
-        out.println("1. Show My Workshops");
+        out.println("1. Show All Workshops");
         out.println("2. Book A Workshop");
-        out.println("3. Rent Your Workshop");
-        out.println("4. Register Yourself");
         if(currentUser!=null)
-            out.println("5. Logout");
+            out.println("3. Logout");
         else
-            out.println("5. Login");
-        out.println("6. Exit");
-        out.println("7. Show Index");
+            out.println("3. Login");
+
+        if(currentUser==null)
+            out.println("4. Register Yourself");
+        else
+            out.println("4. Show My Details");
+        out.println("5. Exit");
+        out.println("6. Show Index");
+
+
     }
 
     private static void login() {
@@ -104,15 +169,19 @@ public class Main {
                 return;
             }else {
                 currentUser = user;
+                if(currentUser.getUserId().equals("admin")) {
+                    adminLoggedIn = true;
+                }
             }
         }catch (Exception e){
-            out.println("in login");
+            out.println("Something went wrong in login");
         }
     }
 
     public static void logout(){
         if(currentUser!=null)
             currentUser = null;
+        adminLoggedIn = false;
     }
 
     public static void book(){
@@ -121,10 +190,10 @@ public class Main {
             login();
         }
         FileIO.showAllWorkshops();
-        out.print("Please enter workshop id to select the workshop : ");
+        out.print("Please enter workshop name to select the workshop : ");
         String workshopId = in.nextLine();
 
-        Workshop workshop = FileIO.getWorkshop(workshopId);
+        Workshop workshop = FileIO.getWorkshop(workshopId,secondaryKeyIndexListOfWorkshop);
 
         out.println("Below are the details of the workshop.");
         workshop.printDetails();
@@ -140,6 +209,7 @@ public class Main {
         }
 
     }
+
     public static void register(){
         out.println("Enter your details : ");
         User newUser = new User();
@@ -149,13 +219,19 @@ public class Main {
         if(FileIO.writeUserData(newUser, primaryKeyIndexList,secondaryKeyIndexList)){
             out.println("Successfully Registered");
         }
-        if(currentUser==null){
-            currentUser = newUser;
-        }
+        currentUser = newUser;
     }
-    public static void rent(){
 
+    public static void rent(){
+        Workshop newWorkshop = new Workshop();
+        newWorkshop.getWorkshopDetailsFromUser();
+        if(FileIO.writeWorkshopData(newWorkshop))
+            out.println("Workshop added successfully");
+        else
+            out.println("Something went wrong");
     }
+
+
     public static void showWorkshops(){
         if(currentUser == null){
             out.println("Please login : ");
@@ -167,19 +243,39 @@ public class Main {
         }
 
         try {
-            File file = new File("Databases/Workshops.txt");
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            List<Workshop> list = new ArrayList<>();
-            list = FileIO.getUserWorkshops(currentUser);
+            List<Workshop> list ;
+            list = FileIO.getWorkshops();
             for (Workshop w:list) {
                 out.println(w.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String searchKey;
+        Workshop workshop;
+        out.println("Enter workshop name to search specific workshop else press enter to proceed further");
+        searchKey = in.nextLine();
+        if(searchKey.isEmpty() && !adminLoggedIn)
+            return;
+        else {
+            workshop = FileIO.getWorkshop(searchKey,secondaryKeyIndexListOfWorkshop);
+            if(workshop!=null)
+                out.println(workshop.toString());
+            else
+                out.println("No Workshop Found");
+        }
+        if(adminLoggedIn){
+            if(searchKey.isEmpty()) {
+                out.println("Enter Workshop Name To Delete Workshop");
+                searchKey = in.nextLine();
+                if(FileIO.deleteWorkshop(searchKey,secondaryKeyIndexListOfWorkshop)){
+                    out.println("Deleted Successfully");
+                }else {
+                    out.println("Error");
+                }
+            }
 
+        }
     }
-
-
 
 }

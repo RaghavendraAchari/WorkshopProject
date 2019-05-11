@@ -1,7 +1,7 @@
 package com.workingsolutions;
 
 public abstract class Index {
-
+    public static final String USER = null;
     private long addressInFile;
 
     public Index(long address){

@@ -25,6 +25,6 @@ public class PrimaryKeyIndex extends Index{
 
     @Override
     public String toString() {
-        return userId + " " + getAddressInFile();
+        return userId + " \t " + getAddressInFile();
     }
 }
