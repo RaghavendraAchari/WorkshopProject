@@ -51,6 +51,7 @@ public class FileIO {
 
     public static boolean writeWorkshopData(Workshop workshop){
         try{
+            workshop.writeBookingDetails();
             RandomAccessFile file = new RandomAccessFile("Databases/Workshops.txt","rw");
             file.seek(file.length());
             file.writeBytes(workshop.getPackedData());
@@ -166,11 +167,14 @@ public class FileIO {
             for (SecondaryKeyIndex w:list) {
                 if(w.getKey().toLowerCase().equals(searchKey.toLowerCase())){
                     file.seek(w.getAddressInFile());
-                    file.write('x');
-                    file.close();
+                    file.write('*');
+
                     list.remove(w);
                 }
+                file.close();
+                return true;
             }
+
         }catch (Exception e){
             e.printStackTrace();
         }

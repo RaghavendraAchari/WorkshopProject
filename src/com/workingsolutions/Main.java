@@ -14,6 +14,7 @@ public class Main {
     private static List<PrimaryKeyIndex> primaryKeyIndexList = new ArrayList<>() ;
     private static List<SecondaryKeyIndex> secondaryKeyIndexList = new ArrayList<>() ;
     private static List<SecondaryKeyIndex> secondaryKeyIndexListOfWorkshop = new ArrayList<>() ;
+    private static boolean toBeDelete = false;
 
 
     public static void main(String[] args) {
@@ -37,6 +38,7 @@ public class Main {
                         showBookingDetails();
                         break;
                     case "4":
+                        toBeDelete = true;
                         deleteWorkshop();
                         break;
                     case "5":
@@ -92,7 +94,12 @@ public class Main {
     }
 
     private static void showBookingDetails() {
-
+        List<Booking> list;
+        list = Booking.getAllBookings();
+        out.println("Name\t\tDay\t\tBooking status");
+        for(Booking b:list){
+            out.println(b.toString());
+        }
     }
 
     private static void showAdminMenu() {
@@ -189,16 +196,19 @@ public class Main {
             out.println("Please login.");
             login();
         }
-        FileIO.showAllWorkshops();
+        showWorkshops();
         out.print("Please enter workshop name to select the workshop : ");
         String workshopId = in.nextLine();
-
-        Workshop workshop = FileIO.getWorkshop(workshopId,secondaryKeyIndexListOfWorkshop);
-
-        out.println("Below are the details of the workshop.");
-        workshop.printDetails();
-        workshop.printAvailability();
-
+        Workshop workshop;
+        if(!workshopId.isEmpty()) {
+             workshop = FileIO.getWorkshop(workshopId, secondaryKeyIndexListOfWorkshop);
+            out.println("Below are the details of the workshop.");
+            workshop.toString();
+            workshop.printAvailability();
+        }else {
+            out.println("Entered Wrong choice");
+            return;
+        }
         out.println("Enter a slot number to book the workshop");
         String slot = in.nextLine();
         try {
@@ -257,24 +267,27 @@ public class Main {
         searchKey = in.nextLine();
         if(searchKey.isEmpty() && !adminLoggedIn)
             return;
-        else {
+        else if(!searchKey.isEmpty()) {
             workshop = FileIO.getWorkshop(searchKey,secondaryKeyIndexListOfWorkshop);
             if(workshop!=null)
                 out.println(workshop.toString());
             else
                 out.println("No Workshop Found");
         }
-        if(adminLoggedIn){
-            if(searchKey.isEmpty()) {
-                out.println("Enter Workshop Name To Delete Workshop");
-                searchKey = in.nextLine();
-                if(FileIO.deleteWorkshop(searchKey,secondaryKeyIndexListOfWorkshop)){
-                    out.println("Deleted Successfully");
-                }else {
-                    out.println("Error");
-                }
+        if(adminLoggedIn && toBeDelete){
+            out.println("Enter Workshop Name To Delete Workshop");
+            searchKey = in.nextLine();
+            if (searchKey.isEmpty()){
+                toBeDelete = false;
+                return;
             }
 
+            if(FileIO.deleteWorkshop(searchKey,secondaryKeyIndexListOfWorkshop)){
+                out.println("Deleted Successfully");
+            }else {
+                out.println("Error");
+            }
+            toBeDelete = false;
         }
     }
 

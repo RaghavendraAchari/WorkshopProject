@@ -1,1 +1,1 @@
-workshopName:userId:bookingDate:price
+Marvel:Monday:AVAILABLE
