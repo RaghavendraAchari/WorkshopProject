@@ -8,7 +8,7 @@ import java.util.Scanner;
 import static java.lang.System.*;
 
 public class Main {
-    private static User currentUser = null;
+    public static User currentUser = null;
     private static boolean adminLoggedIn = false;
     private static Scanner in = new Scanner(System.in);
     private static List<PrimaryKeyIndex> primaryKeyIndexList = new ArrayList<>() ;
@@ -21,6 +21,8 @@ public class Main {
         // create a list of Index objects from file and sort it
         FileIO.createUserIndex(primaryKeyIndexList,secondaryKeyIndexList);
         FileIO.createWorkshopIndex(secondaryKeyIndexListOfWorkshop);
+        FileIO.writeUserIndex(primaryKeyIndexList,secondaryKeyIndexList);
+
         String choice;
 
         while (true){
@@ -203,21 +205,16 @@ public class Main {
         if(!workshopId.isEmpty()) {
              workshop = FileIO.getWorkshop(workshopId, secondaryKeyIndexListOfWorkshop);
             out.println("Below are the details of the workshop.");
+            out.println("----------------------------------------");
             workshop.toString();
+            workshop.printWorkshopBookingDetails();
+            out.println("Available slots");
+            out.println("----------------------------");
             workshop.printAvailability();
         }else {
             out.println("Entered Wrong choice");
             return;
         }
-        out.println("Enter a slot number to book the workshop");
-        String slot = in.nextLine();
-        try {
-            workshop.book(slot);
-            out.println("Thanks for using our service.");
-        }catch (Exception e){
-            e.getMessage();
-        }
-
     }
 
     public static void register(){
@@ -255,22 +252,37 @@ public class Main {
         try {
             List<Workshop> list ;
             list = FileIO.getWorkshops();
+            out.format("%-10s %-15s %-10s %-10s %-10s","Name","Address: State","Pin","Phone","Price");
+            out.println();
+            out.println("---------------------------------------------------------------");
+
             for (Workshop w:list) {
-                out.println(w.toString());
+                out.format("%-10s %-15s %-10s %-10s %-10s",w.getWorkshopName(),w.getWorkshopAddress().getState(),
+                        w.getWorkshopAddress().getPinCode(),w.getWorkshopPhone(),w.getPrice());
+                out.println();
+                //out.println(w.toString());
+
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            out.println("No Workshops");
         }
         String searchKey;
         Workshop workshop;
+        out.println();
         out.println("Enter workshop name to search specific workshop else press enter to proceed further");
         searchKey = in.nextLine();
         if(searchKey.isEmpty() && !adminLoggedIn)
             return;
         else if(!searchKey.isEmpty()) {
             workshop = FileIO.getWorkshop(searchKey,secondaryKeyIndexListOfWorkshop);
-            if(workshop!=null)
-                out.println(workshop.toString());
+            if(workshop!=null) {
+                out.format("%-10s %-15s %-10s %-10s %-10s","Name","Address: State","Pin","Phone","Price");
+                out.println();
+                out.println("---------------------------------------------------------------");
+                out.format("%-10s %-15s %-10s %-10s %-10s",workshop.getWorkshopName(),workshop.getWorkshopAddress().getState(),
+                        workshop.getWorkshopAddress().getPinCode(),workshop.getWorkshopPhone(),workshop.getPrice());
+                out.println();
+            }
             else
                 out.println("No Workshop Found");
         }

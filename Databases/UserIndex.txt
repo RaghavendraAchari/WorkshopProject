@@ -1,0 +1,6 @@
+admin:167
+user1:0
+user2:133
+user3:68
+user5:34
+user6:102

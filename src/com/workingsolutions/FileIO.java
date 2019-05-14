@@ -124,10 +124,16 @@ public class FileIO {
             sortIndex(secondaryKeyIndexList);
 
         }catch (FileNotFoundException e){
-            out.println(e.getStackTrace());
+            secondaryKeyIndexList = null;
+            out.println("No Workshops");
         } catch (IOException e) {
-            e.printStackTrace();
+            secondaryKeyIndexList = null;
+            out.println("No Workshops");
+        }catch (Exception e){
+            secondaryKeyIndexList = null;
+            out.println("No Workshops");
         }
+
     }
 
     public static void sortIndex(List<? extends Index> list){
@@ -137,10 +143,6 @@ public class FileIO {
                 return o1.getKey().compareTo(o2.getKey());
             }
         });
-    }
-
-    public static void showAllWorkshops() {
-
     }
 
     public static Workshop getWorkshop(String workshopName,List<SecondaryKeyIndex> list) {
@@ -179,5 +181,26 @@ public class FileIO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void writeUserIndex(List<PrimaryKeyIndex> list1, List<SecondaryKeyIndex> list2){
+        RandomAccessFile file;
+        try{
+            file = new RandomAccessFile("Databases/UserIndex.txt","rw");
+            for(PrimaryKeyIndex p:list1){
+                String buffer = p.getKey() + ":" + p.getAddressInFile() +"\n" ;
+                file.writeBytes(buffer);
+            }
+            file.close();
+            file = new RandomAccessFile("Databases/UserSecIndex.txt","rw");
+            for(SecondaryKeyIndex s:list2){
+                String buffer2 = s.getKey()+":"+s.getAddressInFile()+"\n";
+                file.writeBytes(buffer2);
+            }
+            file.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

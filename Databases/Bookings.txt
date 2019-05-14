@@ -1,1 +1,13 @@
-Marvel:Monday:AVAILABLE
+*arvel:Monday:AVAILABLE:None:NA
+*arvel:Tuesday:AVAILABLE:None:NA
+*arvel:Wednesday:AVAILABLE:None:NA
+*arvel:Thursday:AVAILABLE:None:NA
+*arvel:Friday:AVAILABLE:None:NA
+*arvel:Saturday:AVAILABLE:None:NA
+marvel:Sunday:AVAILABLE:None:NA
+marvel:Monday:BOOKED:user3:452.0
+marvel:Tuesday:BOOKED:user3:452.0
+marvel:Wednesday:BOOKED:user3:452.0
+marvel:Thursday:BOOKED:user3:452.0
+marvel:Friday:BOOKED:user3:452.0
+marvel:Saturday:BOOKED:user3:452.0

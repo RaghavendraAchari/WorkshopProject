@@ -1,5 +1,6 @@
 package com.workingsolutions;
 
+import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,14 +12,23 @@ public class Booking {
             "Monday",
             "Tuesday",
             "Wednesday",
-            "Thusday",
+            "Thursday",
             "Friday",
             "Saturday",
             "Sunday"
     };
 
     public static String getPackedData(Booking booking) {
-        return booking.date + ":" + booking.status.toString();
+        String user,pr;
+        if(booking.bookedUser == null)
+            user = "None";
+        else
+            user = booking.bookedUser;
+        if(booking.price == null)
+            pr = "NA";
+        else
+            pr = booking.price;
+        return booking.date + ":" + booking.status.toString() +":"+ user + ":" + pr;
     }
 
     public static List<Booking> getAllBookings() {
@@ -44,10 +54,12 @@ public class Booking {
         return wName+ "\t\t" + date + "\t\t" + status.toString();
     }
 
-    private static Booking getUnpacked(String line) {
+    public static Booking getUnpacked(String line) {
         StringTokenizer st = new StringTokenizer(line,":");
         String name = st.nextToken();
         Booking b = new Booking(st.nextToken(),Booking.BookingStatus.valueOf(st.nextToken()));
+        b.bookedUser = st.nextToken();
+        b.price = st.nextToken();
         b.setwName(name);
         return b;
     }
@@ -67,12 +79,18 @@ public class Booking {
         return wName;
     }
 
+    public void setStatus(BookingStatus booked) {
+        status = booked;
+    }
+
     public static enum BookingStatus{
         BOOKED, AVAILABLE, NOT_AVAILABLE
     }
     private String wName;
     private String date;
     private BookingStatus status;
+    public String bookedUser;
+    public String price;
 
     Booking(String date, BookingStatus status){
         this.date = date;
