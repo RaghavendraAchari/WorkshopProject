@@ -7,8 +7,20 @@ import static com.workingsolutions.Booking.*;
 import static java.lang.System.out;
 
 public class Workshop {
+    private Address workshopAddress;
+    private String workshopName;
+    private String userId;
+    private String workshopPhone;
+    private String price;
+    private Booking[] booking = new Booking[7];
     public static List<BookingIndex> bookingIndex = new ArrayList<>();
     Scanner in = new Scanner(System.in);
+
+    public class BookingIndex{
+        long address;
+        String name;
+        String day;
+    }
 
     public Address getWorkshopAddress() {
         return workshopAddress;
@@ -20,22 +32,7 @@ public class Workshop {
 
     public String getPrice() {
         return price;
-    }
-
-    private Address workshopAddress;
-    private String workshopName;
-    private String userId;
-    private String workshopPhone;
-    private String price;
-    private Booking[] booking = new Booking[7];
-
-
-    public class BookingIndex{
-        long address;
-        String name;
-        String day;
-    }
-    public Workshop(){
+    }public Workshop(){
 
 
     }
@@ -70,7 +67,7 @@ public class Workshop {
 
         out.format("%-10s %-10s %-10s %-10s","No.","workshop","Day","Status");
         out.println();
-        out.println("--------------------------------------");
+        out.println("--------- --------- --------- ---------");
         for(Booking b: booking){
             if(b.getStatus().equals(BookingStatus.AVAILABLE.toString())) {
                 out.format("%-10d %-10s %-10s %-10s",(i+1),b.getName() ,b.getDay(),b.getStatus());
@@ -84,11 +81,9 @@ public class Workshop {
         while (selected.hasMoreTokens()){
             book(selected.nextToken());
         }
-
     }
 
     public void book(String slot) {
-
         switch (slot){
             case "1" :
                 out.println(booking[0].getStatus());
@@ -181,7 +176,7 @@ public class Workshop {
 
             out.format("%-10s %-10s %-10s %-10s","User","workshop","Day","Price");
             out.println();
-            out.println("--------------------------------------");
+            out.println("--------- --------- --------- ----------");
             out.format("%-10s %-10s %-10s %-10s",b.bookedUser,b.getName() ,b.getDay(),totalPrice);
             out.println();
             return true;
@@ -273,7 +268,7 @@ public class Workshop {
         }
         out.format("%-10s %-10s %-10s","Name","Day","Status");
         out.println();
-        out.println("------------------------------------------------------------");
+        out.println("--------- --------- ----------");
         for(Booking b: booking){
             out.format("%-10s %-10s %-10s",b.getName(), b.getDay(),b.getStatus());
             out.println();
@@ -324,4 +319,5 @@ public class Workshop {
         return "Name : " + workshopName + "\tAddress : " + workshopAddress.toString() +
                 "\tPhone : " + workshopPhone + "\tPrice : " + price;
     }
+
 }
