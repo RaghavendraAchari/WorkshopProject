@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c3120ea3-7d40-42a8-826e-b8b4835c813e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Databases/Bookings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/Bookings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/workingsolutions/Workshop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/workingsolutions/Workshop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Databases/UserIndex.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/UserIndex.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Databases/UserSecIndex.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/UserSecIndex.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Databases/Users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/Users.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/workingsolutions/FileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/workingsolutions/FileIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/workingsolutions/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/workingsolutions/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,11 +24,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="212" column="35" selection-start-line="212" selection-start-column="35" selection-end-line="212" selection-end-column="35" />
+            <state relative-caret-position="378">
+              <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1156#1863#0" />
+                <element signature="e#1882#2967#1" />
                 <element signature="method#showBookingDetails#0;class#Main#0" />
                 <element signature="method#showAdminMenu#0;class#Main#0" />
                 <element signature="method#printUserIndex#0;class#Main#0" />
@@ -32,6 +37,7 @@
                 <element signature="method#showMenu#0;class#Main#0" />
                 <element signature="method#login#0;class#Main#0" />
                 <element signature="method#logout#0;class#Main#0" />
+                <element signature="method#book#0;class#Main#0" />
                 <element signature="method#register#0;class#Main#0" />
                 <element signature="method#rent#0;class#Main#0" />
                 <element signature="method#showWorkshops#0;class#Main#0" />
@@ -43,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/FileIO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="184" selection-start-line="184" selection-end-line="184" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getUser#0;class#FileIO#0" />
@@ -52,12 +58,22 @@
                 <element signature="method#writeWorkshopData#0;class#FileIO#0" />
                 <element signature="method#getWorkshops#0;class#FileIO#0" />
                 <element signature="e#2315#2695#0" />
-                <element signature="method#createUserIndex#0;class#FileIO#0" />
                 <element signature="method#createWorkshopIndex#0;class#FileIO#0" />
                 <element signature="method#sortIndex#0;class#FileIO#0" />
                 <element signature="method#getWorkshop#0;class#FileIO#0" />
                 <element signature="method#deleteWorkshop#0;class#FileIO#0" />
-                <element signature="method#writeUserIndex#0;class#FileIO#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/States.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,17 +98,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/Workshop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="21">
+              <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="class#BookingIndex#0;class#Workshop#0" />
-                <element signature="e#556#557#0" expanded="true" />
-                <element signature="e#594#595#0" expanded="true" />
                 <element signature="e#634#635#0" expanded="true" />
                 <element signature="e#670#671#0" expanded="true" />
                 <element signature="method#Workshop#0;class#Workshop#0" />
                 <element signature="method#createIndex#0;class#Workshop#0" />
+                <element signature="method#printAvailability#0;class#Workshop#0" />
                 <element signature="method#book#0;class#Workshop#0" />
                 <element signature="e#2758#2952#1" />
                 <element signature="e#3085#3280#1" />
@@ -114,7 +128,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Databases/Bookings.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
@@ -186,11 +200,11 @@
         <option value="$PROJECT_DIR$/src/com/workingsolutions/Booking.java" />
         <option value="$PROJECT_DIR$/Databases/UserIndex.txt" />
         <option value="$PROJECT_DIR$/Databases/UserSecIndex.txt" />
-        <option value="$PROJECT_DIR$/src/com/workingsolutions/FileIO.java" />
         <option value="$PROJECT_DIR$/Databases/Users.txt" />
-        <option value="$PROJECT_DIR$/src/com/workingsolutions/Main.java" />
         <option value="$PROJECT_DIR$/src/com/workingsolutions/Workshop.java" />
         <option value="$PROJECT_DIR$/Databases/Bookings.txt" />
+        <option value="$PROJECT_DIR$/src/com/workingsolutions/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/workingsolutions/FileIO.java" />
       </list>
     </option>
   </component>
@@ -302,7 +316,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.67892504" visible="true" weight="0.19034852" />
       <window_info id="Structure" order="1" sideWeight="0.32107496" side_tool="true" visible="true" weight="0.19034852" />
@@ -313,7 +326,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.55021214" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6817539" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39886847" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -377,13 +390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/States.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="2" column="20" lean-forward="true" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/io/RandomAccessFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3348">
@@ -425,48 +431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="212" column="35" selection-start-line="212" selection-start-column="35" selection-end-line="212" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1156#1863#0" />
-            <element signature="method#showBookingDetails#0;class#Main#0" />
-            <element signature="method#showAdminMenu#0;class#Main#0" />
-            <element signature="method#printUserIndex#0;class#Main#0" />
-            <element signature="method#printWorkshopIndex#0;class#Main#0" />
-            <element signature="method#showMenu#0;class#Main#0" />
-            <element signature="method#login#0;class#Main#0" />
-            <element signature="method#logout#0;class#Main#0" />
-            <element signature="method#register#0;class#Main#0" />
-            <element signature="method#rent#0;class#Main#0" />
-            <element signature="method#showWorkshops#0;class#Main#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/FileIO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="184" selection-start-line="184" selection-end-line="184" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getUser#0;class#FileIO#0" />
-            <element signature="method#writeUserData#0;class#FileIO#0" />
-            <element signature="method#writeWorkshopData#0;class#FileIO#0" />
-            <element signature="method#getWorkshops#0;class#FileIO#0" />
-            <element signature="e#2315#2695#0" />
-            <element signature="method#createUserIndex#0;class#FileIO#0" />
-            <element signature="method#createWorkshopIndex#0;class#FileIO#0" />
-            <element signature="method#sortIndex#0;class#FileIO#0" />
-            <element signature="method#getWorkshop#0;class#FileIO#0" />
-            <element signature="method#deleteWorkshop#0;class#FileIO#0" />
-            <element signature="method#writeUserIndex#0;class#FileIO#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/Booking.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
@@ -505,19 +469,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Databases/Bookings.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/Workshop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
+        <state relative-caret-position="21">
+          <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="class#BookingIndex#0;class#Workshop#0" />
-            <element signature="e#556#557#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
             <element signature="e#634#635#0" expanded="true" />
             <element signature="e#670#671#0" expanded="true" />
             <element signature="method#Workshop#0;class#Workshop#0" />
             <element signature="method#createIndex#0;class#Workshop#0" />
+            <element signature="method#printAvailability#0;class#Workshop#0" />
             <element signature="method#book#0;class#Workshop#0" />
             <element signature="e#2758#2952#1" />
             <element signature="e#3085#3280#1" />
@@ -538,10 +507,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Databases/Bookings.txt">
+    <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        <state relative-caret-position="378">
+          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1156#1863#0" />
+            <element signature="e#1882#2967#1" />
+            <element signature="method#showBookingDetails#0;class#Main#0" />
+            <element signature="method#showAdminMenu#0;class#Main#0" />
+            <element signature="method#printUserIndex#0;class#Main#0" />
+            <element signature="method#printWorkshopIndex#0;class#Main#0" />
+            <element signature="method#showMenu#0;class#Main#0" />
+            <element signature="method#login#0;class#Main#0" />
+            <element signature="method#logout#0;class#Main#0" />
+            <element signature="method#book#0;class#Main#0" />
+            <element signature="method#register#0;class#Main#0" />
+            <element signature="method#rent#0;class#Main#0" />
+            <element signature="method#showWorkshops#0;class#Main#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/FileIO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getUser#0;class#FileIO#0" />
+            <element signature="method#writeUserData#0;class#FileIO#0" />
+            <element signature="method#writeWorkshopData#0;class#FileIO#0" />
+            <element signature="method#getWorkshops#0;class#FileIO#0" />
+            <element signature="e#2315#2695#0" />
+            <element signature="method#createWorkshopIndex#0;class#FileIO#0" />
+            <element signature="method#sortIndex#0;class#FileIO#0" />
+            <element signature="method#getWorkshop#0;class#FileIO#0" />
+            <element signature="method#deleteWorkshop#0;class#FileIO#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/workingsolutions/States.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

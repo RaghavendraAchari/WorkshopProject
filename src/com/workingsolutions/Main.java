@@ -80,6 +80,7 @@ public class Main {
                         return ;
 
                     case "6":
+                        FileIO.writeUserIndex(primaryKeyIndexList,secondaryKeyIndexList);
                         printUserIndex();
                         printWorkshopIndex();
                         break;
@@ -120,15 +121,21 @@ public class Main {
     private static void printUserIndex() {
         if(primaryKeyIndexList!=null && secondaryKeyIndexList != null){
             out.println("Primary Index : ");
-            out.println("UserId: \t Address");
+            out.format("%-10s %-10s","UserId", "Address");
+            out.println();
+            out.println("---------- ---------- ");
             for (PrimaryKeyIndex i : primaryKeyIndexList){
-                out.println(i.toString());
+                out.format("%-10s %-10s",i.getKey(),i.getAddressInFile());
+                out.println();
             }
             out.println();
             out.println("Secondary Index : ");
-            out.println("UserName: \t Address");
+            out.format("%-10s %-10s","UserName", "Address");
+            out.println();
+            out.println("---------- ---------- ");
             for (SecondaryKeyIndex i : secondaryKeyIndexList){
-                out.println(i.toString());
+                out.format("%-10s %-10s",i.getKey(),i.getAddressInFile());
+                out.println();
             }
         }
     }
@@ -137,9 +144,11 @@ public class Main {
         if(secondaryKeyIndexListOfWorkshop != null){
             out.println();
             out.println("Secondary Index Of Workshop : ");
-            out.println("Name : \t Address");
+            out.format("%-10s %-10s","Name","Address");
+            out.println();
             for (SecondaryKeyIndex i : secondaryKeyIndexListOfWorkshop){
-                out.println(i.toString());
+                out.format("%-10s %-10s",i.getKey(),i.getAddressInFile());
+                out.println();
             }
         }
     }

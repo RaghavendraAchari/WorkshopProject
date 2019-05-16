@@ -184,18 +184,18 @@ public class FileIO {
     }
 
     public static void writeUserIndex(List<PrimaryKeyIndex> list1, List<SecondaryKeyIndex> list2){
-        RandomAccessFile file;
+        PrintWriter file;
         try{
-            file = new RandomAccessFile("Databases/UserIndex.txt","rw");
+            file = new PrintWriter("Databases/UserIndex.txt");
             for(PrimaryKeyIndex p:list1){
                 String buffer = p.getKey() + ":" + p.getAddressInFile() +"\n" ;
-                file.writeBytes(buffer);
+                file.write(buffer);
             }
             file.close();
-            file = new RandomAccessFile("Databases/UserSecIndex.txt","rw");
+            file = new PrintWriter("Databases/UserSecIndex.txt");
             for(SecondaryKeyIndex s:list2){
                 String buffer2 = s.getKey()+":"+s.getAddressInFile()+"\n";
-                file.writeBytes(buffer2);
+                file.write(buffer2);
             }
             file.close();
 
